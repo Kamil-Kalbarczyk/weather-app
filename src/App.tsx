@@ -1,8 +1,9 @@
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent, useEffect, useState } from "react";
 import { optionType } from "./types";
 
 const App = (): JSX.Element => {
-  const [location, setLocation] = useState<string>("");
+  const [term, setTerm] = useState<string>("");
+  const [city, setCity] = useState<optionType | null>(null);
   const [options, setOptions] = useState<[]>([]);
 
   const getSearchOptions = async (value: string) => {
@@ -15,23 +16,38 @@ const App = (): JSX.Element => {
       .then((data) => setOptions(data));
   };
 
-  const handleChangeInput = (e: ChangeEvent<HTMLInputElement>) => {
+  const onInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     const value: string = e.target.value.trim();
-    setLocation(value);
+    setTerm(value);
 
     if (value === "") return;
     getSearchOptions(value);
   };
 
-  const onOptionsSelect = async (option: optionType) => {
-    console.log(option);
-    console.log(option.name);
+  const getForecast = async (city: optionType) => {
     fetch(
-      `https://api.openweathermap.org/data/2.5/weather?lat=${option.lat}&lon=${option.lon}&units=metric&appid=${process.env.REACT_APP_API_KEY}`
+      `https://api.openweathermap.org/data/2.5/weather?lat=${city.lat}&lon=${city.lon}&units=metric&appid=${process.env.REACT_APP_API_KEY}`
     )
       .then((response) => response.json())
       .then((data) => console.log(data));
   };
+
+  const onSubmit = () => {
+    if (!city) return;
+
+    getForecast(city);
+  };
+
+  const onOptionsSelect = async (option: optionType) => {
+    setCity(option);
+  };
+
+  useEffect(() => {
+    if (city) {
+      setTerm(city.name);
+      setOptions([]);
+    }
+  }, [city]);
 
   return (
     <main className="flex justify-center items-center bg-gradient-to-r from-cyan-500 to-blue-500 h-[100vh] w-full">
@@ -46,9 +62,9 @@ const App = (): JSX.Element => {
         <div className=" flex mt-10 md:mt-4 relative">
           <input
             type="text"
-            value={location}
+            value={term}
             className="px-2 py-1 border-2 border-white rounded-l-md"
-            onChange={handleChangeInput}
+            onChange={onInputChange}
           />
           <ul className=" absolute top-9 bg-white ml-1 rounded-b-md">
             {options.map((option: optionType, index: number) => (
@@ -62,7 +78,10 @@ const App = (): JSX.Element => {
               </li>
             ))}
           </ul>
-          <button className=" rounded-r-md border-2 border-zinc-100 hover:border-zinc-500 hover:text-zinc-500 text-zinc-100 px-2 py-1 curosor-pointer">
+          <button
+            className=" rounded-r-md border-2 border-zinc-100 hover:border-zinc-500 hover:text-zinc-500 text-zinc-100 px-2 py-1 curosor-pointer"
+            onClick={onSubmit}
+          >
             search
           </button>
         </div>
