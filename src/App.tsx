@@ -1,4 +1,5 @@
 import { ChangeEvent, useState } from "react";
+import { optionType } from "./types";
 
 const App = (): JSX.Element => {
   const [location, setLocation] = useState<string>("");
@@ -22,6 +23,11 @@ const App = (): JSX.Element => {
     getSearchOptions(value);
   };
 
+  const onOptionsSelect = (option: optionType) => {
+    console.log(option);
+    console.log(option.name);
+  };
+
   // http://api.openweathermap.org/geo/1.0/direct?q={city name},{state code},{country code}&limit={limit}&appid={API key}
 
   return (
@@ -43,9 +49,12 @@ const App = (): JSX.Element => {
             onChange={handleChangeInput}
           />
           <ul className=" absolute top-9 bg-white ml-1 rounded-b-md">
-            {options.map((option: { name: string }, index: number) => (
+            {options.map((option: optionType, index: number) => (
               <li key={option.name + "-" + index}>
-                <button className=" text-left text-sm w-full hover:bg-zinc-700 hover:text-white px-2 py-1 cursor-pointer">
+                <button
+                  className=" text-left text-sm w-full hover:bg-zinc-700 hover:text-white px-2 py-1 cursor-pointer"
+                  onClick={() => onOptionsSelect(option)}
+                >
                   {option.name}
                 </button>
               </li>
