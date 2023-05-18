@@ -6,6 +6,7 @@ const App = (): JSX.Element => {
   const [term, setTerm] = useState<string>("");
   const [city, setCity] = useState<optionType | null>(null);
   const [options, setOptions] = useState<[]>([]);
+  const [forecast, setForecast] = useState<null>(null);
 
   const getSearchOptions = async (value: string) => {
     fetch(
@@ -30,7 +31,7 @@ const App = (): JSX.Element => {
       `https://api.openweathermap.org/data/2.5/weather?lat=${city.lat}&lon=${city.lon}&units=metric&appid=${process.env.REACT_APP_API_KEY}`
     )
       .then((response) => response.json())
-      .then((data) => console.log(data));
+      .then((data) => setForecast(data));
   };
 
   const onSubmit = () => {
@@ -52,13 +53,17 @@ const App = (): JSX.Element => {
 
   return (
     <main className="flex justify-center items-center bg-gradient-to-r from-cyan-500 to-blue-500 h-[100vh] w-full">
-      <Search
-        term={term}
-        options={options}
-        onInputChange={onInputChange}
-        onOptionSelect={onOptionSelect}
-        onSubmit={onSubmit}
-      />
+      {forecast ? (
+        "We have a forecast"
+      ) : (
+        <Search
+          term={term}
+          options={options}
+          onInputChange={onInputChange}
+          onOptionSelect={onOptionSelect}
+          onSubmit={onSubmit}
+        />
+      )}
     </main>
   );
 };
