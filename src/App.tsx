@@ -11,9 +11,7 @@ const App = (): JSX.Element => {
       }`
     )
       .then((response) => response.json())
-      .then((data) => {
-        setOptions(data);
-      });
+      .then((data) => setOptions(data));
   };
 
   const handleChangeInput = (e: ChangeEvent<HTMLInputElement>) => {
@@ -36,7 +34,7 @@ const App = (): JSX.Element => {
           Start to typing name of the place you want to know the weather and
           select the one.
         </p>
-        <div className=" flex mt-10 md:mt-4">
+        <div className=" flex mt-10 md:mt-4 relative">
           {" "}
           <input
             type="text"
@@ -44,6 +42,15 @@ const App = (): JSX.Element => {
             className="px-2 py-1 border-2 border-white rounded-l-md"
             onChange={handleChangeInput}
           />
+          <ul className=" absolute top-9 bg-white ml-1 rounded-b-md">
+            {options.map((option: { name: string }, index: number) => (
+              <li key={option.name + "-" + index}>
+                <button className=" text-left text-sm w-full hover:bg-zinc-700 hover:text-white px-2 py-1 cursor-pointer">
+                  {option.name}
+                </button>
+              </li>
+            ))}
+          </ul>
           <button className=" rounded-r-md border-2 border-zinc-100 hover:border-zinc-500 hover:text-zinc-500 text-zinc-100 px-2 py-1 curosor-pointer">
             search
           </button>
