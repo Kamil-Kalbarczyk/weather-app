@@ -8,7 +8,7 @@ const App = (): JSX.Element => {
   return (
     <main className="flex justify-center items-center bg-gradient-to-r from-cyan-500 to-blue-500 h-[100vh] w-full">
       {forecast ? (
-        <Forecast />
+        <Forecast data={forecast} />
       ) : (
         // "We have a forecast"
         <Search
