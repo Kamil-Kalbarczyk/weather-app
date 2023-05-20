@@ -1,4 +1,4 @@
-import { getSunTime, getWindDirection } from "../helpers";
+import { getHumidityValue, getSunTime, getWindDirection } from "../helpers";
 import Sunrise from "../icons/Sunrise";
 import Sunset from "../icons/Sunset";
 import { forecastType } from "../types";
@@ -81,6 +81,12 @@ const Forecast = ({ data }: Props): JSX.Element => {
                 ? "colder"
                 : "warmer"
             }`}
+          />
+          <Tile
+            icon="humidity"
+            title="Humidity"
+            info={`${today.main.humidity} %`}
+            description={getHumidityValue(today.main.humidity)}
           />
         </section>
       </div>
