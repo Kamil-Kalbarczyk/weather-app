@@ -2,6 +2,7 @@ import {
   getHumidityValue,
   getPop,
   getSunTime,
+  getVisibilityValue,
   getWindDirection,
 } from "../helpers";
 import Sunrise from "../icons/Sunrise";
@@ -108,6 +109,12 @@ const Forecast = ({ data }: Props): JSX.Element => {
             description={`${
               Math.round(today.main.pressure) < 1013 ? "Lower" : "Higher"
             } than standard`}
+          />
+          <Tile
+            icon="visibility"
+            title="Visibility"
+            info={`${(today.visibility / 1000).toFixed()} km`}
+            description={getVisibilityValue(today.visibility)}
           />
         </section>
       </div>
