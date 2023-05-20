@@ -1,4 +1,4 @@
-import { getSunTime } from "../helpers";
+import { getSunTime, getWindDirection } from "../helpers";
 import Sunrise from "../icons/Sunrise";
 import Sunset from "../icons/Sunset";
 import { forecastType } from "../types";
@@ -64,7 +64,14 @@ const Forecast = ({ data }: Props): JSX.Element => {
             <span className=" mt-2">{getSunTime(data.sunset)}</span>
           </div>
 
-          <Tile icon="wind" title="Wind" />
+          <Tile
+            icon="wind"
+            title="Wind"
+            info={`${Math.round(today.wind.speed)} km/h`}
+            description={`${getWindDirection(
+              Math.round(today.wind.deg)
+            )} gust ${today.wind.gust.toFixed(1)} km/h`}
+          />
         </section>
       </div>
     </div>
