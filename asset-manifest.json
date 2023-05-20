@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/Kamil-Kalbarczyk/weather-app/static/css/main.bd515a03.css",
+    "main.js": "/Kamil-Kalbarczyk/weather-app/static/js/main.c8efa539.js",
+    "index.html": "/Kamil-Kalbarczyk/weather-app/index.html",
+    "main.bd515a03.css.map": "/Kamil-Kalbarczyk/weather-app/static/css/main.bd515a03.css.map",
+    "main.c8efa539.js.map": "/Kamil-Kalbarczyk/weather-app/static/js/main.c8efa539.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.bd515a03.css",
+    "static/js/main.c8efa539.js"
+  ]
+}
