@@ -101,6 +101,14 @@ const Forecast = ({ data }: Props): JSX.Element => {
               today.clouds.all
             } %`}
           />
+          <Tile
+            icon="pressure"
+            title="Pressure"
+            info={`${today.main.pressure} hPa`}
+            description={`${
+              Math.round(today.main.pressure) < 1013 ? "Lower" : "Higher"
+            } than standard`}
+          />
         </section>
       </div>
     </div>
