@@ -14,7 +14,7 @@
 
 ## :exclamation: If you want to see deployment, you have to do 3 things:
 
-### 1. clone this repository
+### 1. Clone this repository
 
 ### 2. Create free account and get your own API key from https://openweathermap.org/
 
