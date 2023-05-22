@@ -14,8 +14,7 @@ const useForecast = () => {
       }`
     )
       .then((response) => response.json())
-      .then((data) => setOptions(data))
-      .catch((e) => console.error(e));
+      .then((data) => setOptions(data));
   };
 
   const onInputChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -39,8 +38,7 @@ const useForecast = () => {
 
         console.log(forecastData);
         setForecast(forecastData);
-      })
-      .catch((e) => console.error(e));
+      });
   };
 
   const onSubmit = () => {
